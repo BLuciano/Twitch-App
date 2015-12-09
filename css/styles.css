@@ -1,3 +1,7 @@
+body{	
+	background-color: #009899;
+}
+
 a{
 	text-decoration: none;
 }
@@ -17,39 +21,75 @@ img{
 	border-radius: 25px;
 }
 
-button{
-	margin: 0;
-	padding: 0;
-	width: 114px;
-	height: 50px;
-	font-size: 1.25em;
-}
-
-input{
-	margin: 25px 0;
-	padding: 5px 0;
-	width: 90%;
-	font-size: 1.25em;
-	border-radius: 15px;
-	border: none;
-}
-
 #wrapper{
 	text-align: center;
 	width: 350px;
 	margin: 50px auto;
 	background-color: #000;
 	color: #fff;
+	border: 2px solid #004a4d;
+}
+
+
+/******SEARCH BAR*********/
+#search{
+	border-bottom: 1px solid #666;
+	margin-bottom: 25px;
+}
+
+input{
+	margin: 25px 0 25px -12px;
+	width: 250px;
+	padding: 2.5px 30px 2.5px 45px;
+	font-size: 1.15em;
+	border-radius: 15px;
+	border: none;
+}
+input:focus {
+	outline: 0;
+}
+
+label{
+	position: relative;
+	color: #aaa;
+	left: 15px;
+}
+
+
+/******BUTTON QUERY*********/
+.online{
+	color: green;
+}
+
+.offline{
+	color: red;
 }
 
 #status{
 	display: inline-block;
+	font-size: 0;
+}
+button{
+	background-color: #004a4d;
+	border: none;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	width: 116.68px;
+	height: 50px;
+	font-size: 1.25rem;
+}
+button:active{
+	background-color: #003133;
+}
+button:focus{
+	outline: none;
+}
+button:first-child, button:nth-child(2n){
+	border-right: 1px solid #009899;
 }
 
-#search{
-	border-bottom: 1px solid #aaa;
-	margin-bottom: 25px;
-}
+/*******STREAMER DISPLAY AREA********/
 
 #display{
 	text-align: left;
@@ -58,6 +98,7 @@ input{
 #display a{
 	clear: both;
 	display: block;
+	color: #009899;
 }
 
 #display h4{
@@ -68,7 +109,9 @@ input{
 	clear: both;
 	font-size: .75em;
 	color: #aaa;
-	margin-left: 80px;
+	position: relative;
+	left: 80px;
+	top: -15px;
 }
 
 .left{
