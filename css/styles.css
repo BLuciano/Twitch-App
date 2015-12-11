@@ -81,11 +81,11 @@ button{
 	font-size: 1.25rem;
 	
 }
-button:active{
-	background-color: #003133;
-}
 button:focus{
 	outline: none;
+}
+button:hover{
+	cursor: pointer;
 }
 button:first-child, button:nth-child(2n){
 	border-right: 1px solid #009899;
@@ -97,7 +97,7 @@ button.selected:before{
 	width: 0;
 	height: 0;
 	top: 50px;
-	left: 45px;
+	left: 47px;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 	border-top: 15px solid #004a4d;
