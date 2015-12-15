@@ -1,11 +1,19 @@
 (function(){
-	var url, content, all, online, offline;
+	var url, content, all ="", online ="", offline ="";
 
 	$("button").on("click", function(){
 		$("button").removeClass("selected");
 		$(this).addClass("selected");
-		console.log($(this).html());
-		//if($(this).html() === "All" 
+
+		if($(this).html() === "All"){
+			$("#display").html(all);
+		} 
+		if($(this).html() === "Online"){
+			$("#display").html(online);
+		}
+		if($(this).html() === "Offline"){
+			$("#display").html(offline);
+		}
 	});
 
 	var streamers = [
