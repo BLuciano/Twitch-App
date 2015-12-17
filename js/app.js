@@ -1,5 +1,6 @@
 (function(){
 	var url, content, all ="", online ="", offline ="";
+	var image;
 	var streamers = [
 		"freecodecamp", "storbeck", "terakilobyte", 
 		"habathcx", "RobotCaleb", "thomasballinger",
@@ -35,16 +36,21 @@
 			$.getJSON("https://api.twitch.tv/kraken/streams/" + data.display_name + "?callback=?",
 			function(data){
 				content = "";
-				console.log(info);
+				if(info.logo){
+					image = info.logo;
+				} else {
+					image = "error.png";
+				}
+
 				if(info.error){
-					content+= "<img class='left' src='" + info.logo + "'>";
+					content+= "<img class='left' src='" + image + "'>";
 					content+= "<h4 class='left'> Error </h4>";
 					content+= "<h4 class='right offline'><i class='fa fa-thumbs-down'></i></h4>";		
 					content+="<p>" + info.message + "</p>";
 
 				} else {
 					content+= "<a target='_blank' href='" + info.url + "'>";
-					content+= "<img class='left' src='" + info.logo + "'>";
+					content+= "<img class='left' src='" + image + "'>";
 					content+= "<h4 class='left'>" + info.display_name + "</h4>";
 
 					if(data.stream){
