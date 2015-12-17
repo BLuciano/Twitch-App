@@ -1,36 +1,12 @@
 (function(){
 	var url, content, all =[], online =[], offline =[];
-	var image, value;
+	var searchArry = [], finalSearch = [];
+	var image, value, searching = false;
 	var streamers = [
 		"freecodecamp", "storbeck", "terakilobyte", 
 		"habathcx", "RobotCaleb", "thomasballinger",
 		"noobs2ninjas","beohoff", "medrybw", "brunofin"
 	];
-
-	//Buttons Section
-	$("button").on("click", function(){
-		$("button").removeClass("selected");
-		$(this).addClass("selected");
-
-		if($(this).html() === "All"){
-			display(all)
-		} 
-		if($(this).html() === "Online"){
-			display(online);
-		}
-		if($(this).html() === "Offline"){
-			display(offline);
-		}
-	});
-
-	//Displays streamers according to button selection.
-	function display(array){
-		$("#display").html("");
-		var keys = Object.keys(array);
-		for(var i = 0; i < keys.length; i++){
-			$("#display").append(array[keys[i]]);
-		}
-	}
 
 	//Json API calls section
 	for(var i = 0; i < streamers.length; i++){
@@ -52,6 +28,7 @@
 				}
 
 				if(info.error){
+					info.display_name = "error";
 					content+= "<img class='left' src='" + image + "'>";
 					content+= "<h4 class='left'> Error </h4>";
 					content+= "<h4 class='right offline'><i class='fa fa-thumbs-down'></i></h4>";		
@@ -78,21 +55,60 @@
 		});
 	}
 
-	//Search bar section
+	//Buttons selection
+	$("button").on("click", function(){
+		$("button").removeClass("selected");
+		$(this).addClass("selected");
+		$("#search-bar").val("");
+		display(getArray($(this).html()));
+	});
+
+	/*Checks to see which button is selected and 
+	returns array of users to display*/
+	function getArray($button){
+		if($button === "All"){
+			array = all;
+		} 
+		if($button === "Online"){
+			array = online;
+		}
+		if($button === "Offline"){
+			array = offline;
+		}
+		return(array);
+	}
+
+	//Displays streamers according to button selection.
+	function display(array){
+		$("#display").html("");
+		var keys = Object.keys(array);
+		for(var i = 0; i < keys.length; i++){
+			$("#display").append(array[keys[i]]);
+		}
+	}
+
+	/*Search bar section. Checks which tab is selected and grabs the 
+	acording streamer array. It then checks to see if there is a match 
+	with the user input and displays all of the matches in a new array.*/
 	$("#search-bar").on('keyup paste', function(){
     	value = $(this).val().toLowerCase();
+    	finalSearch = [];
+
     	if(value === ""){
-    		display(all);
+    		searchArry = [];
+    		searching = false;
+    		display(getArray($("button.selected").html()));
     	}
     	else{
+    		searching = true;
     		$("#display").html(""); 
-    		index = Object.keys(all).indexOf(value);
-    		if(index !== -1){	
-    			console.log(all[Object.keys(all)[index]]);
-    			$("#display").append(all[Object.keys(all)[index]]);
+    		searchArry = getArray($("button.selected").html());
+    		for(var i = 0; i < Object.keys(searchArry).length; i++){
+    			if(Object.keys(searchArry)[i].match(value)){
+    				finalSearch[Object.keys(searchArry)[i]] = searchArry[Object.keys(searchArry)[i]];
+    			}
     		}
+    		display(finalSearch);
     	}
     });
-
-
 })();
