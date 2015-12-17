@@ -1,6 +1,12 @@
 (function(){
 	var url, content, all ="", online ="", offline ="";
+	var streamers = [
+		"freecodecamp", "storbeck", "terakilobyte", 
+		"habathcx", "RobotCaleb", "thomasballinger",
+		"noobs2ninjas","beohoff", "medrybw", "brunofin"
+	];
 
+	//Buttons Section
 	$("button").on("click", function(){
 		$("button").removeClass("selected");
 		$(this).addClass("selected");
@@ -16,12 +22,7 @@
 		}
 	});
 
-	var streamers = [
-		"freecodecamp", "storbeck", "terakilobyte", 
-		"habathcx", "RobotCaleb", "thomasballinger",
-		"noobs2ninjas","beohoff", "medrybw"
-	];
-	
+	//Json API calls section
 	for(var i = 0; i < streamers.length; i++){
 		/*Get channel information for each streamer.*/
 		url = "https://api.twitch.tv/kraken/channels/" + streamers[i] + "?callback=?";
@@ -34,22 +35,35 @@
 			$.getJSON("https://api.twitch.tv/kraken/streams/" + data.display_name + "?callback=?",
 			function(data){
 				content = "";
-				content+= "<a target='_blank' href='" + info.url + "'>";
-				content+= "<img class='left' src='" + info.logo + "'>";
-				content+= "<h4 class='left'>" + info.display_name + "</h4>";
-
-				if(data.stream){
-					content+= "<h4 class='right online'><i class='fa fa-thumbs-up'></i></h4>";
-					content+= "<p>" + data.stream.channel.status + "</p></a>";
-					online+= content;		
-				} else {
+				console.log(info);
+				if(info.error){
+					content+= "<img class='left' src='" + info.logo + "'>";
+					content+= "<h4 class='left'> Error </h4>";
 					content+= "<h4 class='right offline'><i class='fa fa-thumbs-down'></i></h4>";		
-					content+="<p>&nbsp</p></a>";
-					offline+= content;
+					content+="<p>" + info.message + "</p>";
+
+				} else {
+					content+= "<a target='_blank' href='" + info.url + "'>";
+					content+= "<img class='left' src='" + info.logo + "'>";
+					content+= "<h4 class='left'>" + info.display_name + "</h4>";
+
+					if(data.stream){
+						content+= "<h4 class='right online'><i class='fa fa-thumbs-up'></i></h4>";
+						content+= "<p>" + data.stream.channel.status + "</p></a>";
+						online+= content;		
+					} else {
+						content+= "<h4 class='right offline'><i class='fa fa-thumbs-down'></i></h4>";		
+						content+="<p></p></a>";
+						offline+= content;
+					}
 				}
 				all+= content;
 				$("#display").append(content);
 			});
 		});
 	}
+
+	//Search bar section
+
+
 })();

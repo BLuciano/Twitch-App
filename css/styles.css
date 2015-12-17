@@ -127,6 +127,7 @@ button.selected:before{
 	left: 90px;
 	top: -15px;
 	width: 200px;
+	min-height: 1px;
 }
 
 .left{
